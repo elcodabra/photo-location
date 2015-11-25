@@ -2,19 +2,49 @@ require('normalize.css');
 require('styles/App.css');
 
 import React from 'react';
-import PhotoComponent from './PhotoComponent';
+import PhotoGallery from './PhotoGalleryComponent';
 
 class AppComponent extends React.Component {
+  // Constructor
+  constructor(props) {
+    super(props);
+    this.state = {items: props.items};
+  }
+  setItems(items) {
+    this.setState({items: items})
+  }
+
   render() {
     return (
       <div className="index">
-        <PhotoComponent imageURL='http://images.clipartlogo.com/files/ss/original/102/102455216/vector-kremlin-st-basil.jpg' />
+        <PhotoGallery items={this.state.items}/>
       </div>
     );
   }
 }
 
 AppComponent.defaultProps = {
+  items: [
+    {
+      url: 'http://images.clipartlogo.com/files/ss/original/102/102455216/vector-kremlin-st-basil.jpg',
+      caption: 'New York!'
+    },
+    {
+      url: 'http://thumbs.dreamstime.com/x/kremlin-moscow-52830759.jpg',
+      caption: 'Cows'
+    },
+    {
+      url: 'http://thumbs.dreamstime.com/z/kremlin-21047190.jpg',
+      caption: 'Scooters'
+    },
+    {
+      url: 'http://thumbs.dreamstime.com/z/%D1%81%D0%B8%D0%BC%D0%B2%D0%BE-%D0%BC%D0%BE%D1%81%D0%BA%D0%B2%D1%8B-%D0%BA%D1%80%D0%B5%D0%BC-%D1%8F-40230008.jpg',
+      caption: 'Scooters'
+    },
+    {
+      url: 'http://thumbs.dreamstime.com/z/structure-russia-moscow-kremlin-based-three-bears-bears-stand-oil-rigs-oil-pumps-forest-infographic-russian-55309611.jpg',
+      caption: 'Scooters'
+    }]
 };
 
 export default AppComponent;

@@ -2,6 +2,9 @@
 logs
 *.log
 
+# IDEA files
+.idea
+
 # Runtime data
 pids
 *.pid
