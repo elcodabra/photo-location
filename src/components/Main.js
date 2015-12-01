@@ -3,12 +3,13 @@ require('styles/App.css');
 
 import React from 'react';
 import PhotoGallery from './PhotoGalleryComponent';
+import AbsoluteGrid from 'react-absolute-grid/lib/AbsoluteGrid.jsx';
 
 class AppComponent extends React.Component {
   // Constructor
   constructor(props) {
     super(props);
-    this.state = {items: props.items};
+    this.state = {items: props.items, sample: props.sampleItems};
   }
   setItems(items) {
     this.setState({items: items})
@@ -18,6 +19,7 @@ class AppComponent extends React.Component {
     return (
       <div className="index">
         <PhotoGallery items={this.state.items}/>
+        <AbsoluteGrid items={this.state.sampleItems} />
       </div>
     );
   }
@@ -44,7 +46,11 @@ AppComponent.defaultProps = {
     {
       url: 'http://thumbs.dreamstime.com/z/structure-russia-moscow-kremlin-based-three-bears-bears-stand-oil-rigs-oil-pumps-forest-infographic-russian-55309611.jpg',
       caption: 'Scooters'
-    }]
+    }],
+  sampleItems: [
+    {key: 1, name: 'Test', sort: 0, filtered: 0},
+    {key: 2, name: 'Test 1', sort: 1, filtered: 0},
+  ]
 };
 
 export default AppComponent;
