@@ -54,7 +54,7 @@
     "null-loader": "^0.1.1",
     "open": "0.0.5",
     "phantomjs": "^1.9.18",
-    "react-absolute-grid": "^1.0.5",
+    "react-absolute-grid": "^2.0.0",
     "react-hot-loader": "^1.2.9",
     "rimraf": "^2.4.3",
     "style-loader": "^0.13.0",

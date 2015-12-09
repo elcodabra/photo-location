@@ -27,8 +27,8 @@ var config = _.merge({
 // Add needed loaders
 config.module.loaders.push({
   test: /\.(js|jsx)$/,
-  loader: 'react-hot!babel-loader',
-  include: [ path.join(__dirname, '/../src'), path.join(__dirname, '/../node_modules/react-absolute-grid') ]
+  loader: 'react-hot!babel-loader?stage=0&breakConfig=true',
+  include: [ path.join(__dirname, '/../src'), path.join(__dirname, '/../node_modules/react-absolute-grid')] //, path.join(__dirname, '/../node_modules/react-absolute-grid')
 });
 
 module.exports = config;

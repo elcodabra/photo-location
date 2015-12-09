@@ -24,7 +24,7 @@ class AppComponent extends React.Component {
     );
   }
 }
-
+//<AbsoluteGrid items={this.state.sampleItems} />
 AppComponent.defaultProps = {
   items: [
     {
