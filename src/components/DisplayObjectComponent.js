@@ -6,12 +6,13 @@ require('styles//DisplayObject.less');
 
 class DisplayObjectComponent extends React.Component {
   render() {
-    const { item, index, itemsLength } = this.props;
-    return (
-      <div className="displayobject-component">
-        Item {index} of {itemsLength}: {item.name}
-      </div>
-    );
+    const itemStyle = {
+      display: 'block',
+      width: '100%',
+      height: '100%',
+      backgroundImage: `url('${this.props.item.url}')`
+    };
+    return <div style={itemStyle} className="gridItem"><span className="name">{this.props.item.name}</span></div>;
   }
 }
 
