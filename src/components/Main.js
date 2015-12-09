@@ -4,6 +4,7 @@ require('styles/App.css');
 import React from 'react';
 import PhotoGallery from './PhotoGalleryComponent';
 import AbsoluteGrid from 'react-absolute-grid/lib/AbsoluteGrid.jsx';
+import DisplayObject from './DisplayObjectComponent'
 
 class AppComponent extends React.Component {
   // Constructor
@@ -19,7 +20,7 @@ class AppComponent extends React.Component {
     return (
       <div className="index">
         <PhotoGallery items={this.state.items}/>
-        <AbsoluteGrid items={this.state.sampleItems} />
+        <AbsoluteGrid items={this.state.sampleItems} displayObject={(<DisplayObject/>)} />
       </div>
     );
   }
