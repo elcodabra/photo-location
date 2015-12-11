@@ -3,6 +3,7 @@ require('styles/App.css');
 
 import React from 'react';
 import PhotoGallery from './PhotoGalleryComponent';
+import Search from './SearchComponent'
 import * as data from './sampleData.js';
 
 class AppComponent extends React.Component {
@@ -18,6 +19,7 @@ class AppComponent extends React.Component {
   render() {
     return (
       <div className="index">
+        <Search />
         <PhotoGallery items={this.state.items}/>
       </div>
     );
