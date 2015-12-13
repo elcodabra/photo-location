@@ -9,7 +9,7 @@ require('styles//Search.less');
 class SearchComponent extends React.Component {
   render() {
     var onSearch = function() {
-      Actions.requestFlickrData(document.getElementById("search-text").value);
+      //Actions.requestFlickrData(document.getElementById("search-text").value);
       Actions.requestInstaTagData(document.getElementById("search-text").value);
     };
     return (

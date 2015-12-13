@@ -21,7 +21,7 @@ class AppComponent extends React.Component {
     return (
       <div className="index">
         <Search />
-        <Flickr/>
+        {/*<Flickr/>*/}
         <PhotoGallery items={this.state.items}/>
       </div>
     );
