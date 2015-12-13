@@ -3,7 +3,6 @@ import find from 'lodash/collection/find';
 import dispatcher from '../dispatcher/Dispatcher';
 import Actions from '../actions/Action';
 import $ from 'jquery';
-import * as _ from 'lodash';
 
 class AppStore extends Store {
 
@@ -74,7 +73,7 @@ class AppStore extends Store {
                 break;
 
             case 'PROCESS-INSTA-DATA':
-                this.set('instaData', _.pluck(_.filter(data.data, { type: 'image' }), 'images'));
+                this.set('instaData', data.data);
                 break;
 
             default:

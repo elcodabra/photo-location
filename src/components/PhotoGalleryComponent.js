@@ -30,17 +30,17 @@ class PhotoGalleryComponent extends React.Component {
 
     updateState() {
         this.setState({
-            images: appStore.get('instaData')
+            images: _.pluck(_.filter(appStore.get('instaData'), { type: 'image' }), 'images').map((item, index) => _.assign(item, { key: index, sort: index }))
         });
     }
     render() {
         // FIXME: see /react-absolute-grid/demo.js
-        let images = this.state.images.map(image => {
+        /*let images = this.state.images.map(image => {
             return (
                 <a className="thumbnail"><img src={image.low_resolution.url}/></a>
             );
-        });
-        var screens = this.state.items.screens;
+        });*/
+        var screens = this.state.images; //this.state.items.screens;
         var displayObject = (<DisplayObject/>), zoom = 0.7;
         var render = function(){ ReactDOM.render(<AppComponent />, document.getElementById('app')); };
         //Change the item's sort order
@@ -75,7 +75,7 @@ class PhotoGalleryComponent extends React.Component {
 
         return (
             <div id="photo-gallery" className="photogallery-component">
-                <div><h1>InstaPhoto</h1>{images}</div>
+                <div><h1>InstaPhoto</h1>{/*images*/}</div>
                 <AbsoluteGrid items={screens}
                               displayObject={displayObject}
                               onMove={onMoveDebounced}

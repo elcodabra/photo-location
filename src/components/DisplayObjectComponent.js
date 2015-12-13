@@ -10,9 +10,9 @@ class DisplayObjectComponent extends React.Component {
       display: 'block',
       width: '100%',
       height: '100%',
-      backgroundImage: `url('${this.props.item.url}')`
+      backgroundImage: `url('${this.props.item.low_resolution.url}')`
     };
-    return <div style={itemStyle} className="gridItem"><span className="name">{this.props.item.name}</span></div>;
+    return <div style={itemStyle} className="gridItem"><span className="name">{this.props.item.sort}</span></div>;
   }
 }
 
