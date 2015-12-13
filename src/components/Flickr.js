@@ -41,7 +41,7 @@ class Flickr extends React.Component {
         });
 
         return (
-            <div className="flickr-component">{images}</div>
+            <div className="flickr-component"><h1>Flickr</h1>{images}</div>
         );
     }
 }
