@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import Actions from '../actions/Action';
 import * as $ from 'jquery';
 
 require('styles//Search.less');
@@ -8,6 +9,7 @@ require('styles//Search.less');
 class SearchComponent extends React.Component {
   render() {
     var onSearch = function() {
+      Actions.requestFlickrData(document.getElementById("search-text").value);
       $.ajax({
         url: "https://api.instagram.com/v1/media/search?lat=48.858093&lng=2.294694&client_id=e050a30d1667451cbc3598f3cce20530",
 
