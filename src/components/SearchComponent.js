@@ -26,10 +26,15 @@ class SearchComponent extends React.Component {
   }
 
   render() {
-    let places = this.state.places;
-    console.log(places);
+    let places = this.state.places.map(place => {
+      return (
+        <li>{place.name}/></li>
+      );
+    });
+    console.log(this.state.places);
     let onSearch = function() {
       //Actions.requestFlickrData(document.getElementById("search-text").value);
+      Actions.request4SquareData(document.getElementById("search-text").value);
       Actions.requestInstaTagData(document.getElementById("search-text").value);
     };
     function getSuggestions(input, callback) {
@@ -56,10 +61,11 @@ class SearchComponent extends React.Component {
           <button onClick={onSearch}>Search</button>
         </div>
         <div>
-          <Autosuggest suggestions={getSuggestions}
+          {/*<Autosuggest suggestions={getSuggestions}
                        suggestionRenderer={renderSuggestion}
                        suggestionValue={item => item.name + ' (' + item.stats.checkinsCount + ')'}
-                       showWhen={input => input.trim().length >= 5} />
+                       showWhen={input => input.trim().length >= 5} />*/}
+          <ul>{places}</ul>
         </div>
       </div>
     );
