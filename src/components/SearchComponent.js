@@ -34,6 +34,7 @@ class SearchComponent extends React.Component {
     });
     let variants = _.pluck(this.state.places, 'name');
     console.log(this.state.places);
+    console.log(variants);
     let onSearch = function() {
       //Actions.requestFlickrData(document.getElementById("search-text").value);
       Actions.request4SquareData(document.getElementById("search-text").value);
