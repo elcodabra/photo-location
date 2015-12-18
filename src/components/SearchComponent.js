@@ -3,7 +3,8 @@
 import React from 'react';
 import Actions from '../actions/Action';
 import appStore from '../stores/AppStore';
-import Autosuggest from 'react-autosuggest';
+//import Autosuggest from 'react-autosuggest';
+import ReactTypeahead from 'react-typeahead';
 import * as $ from 'jquery';
 
 require('styles//Search.less');
@@ -31,6 +32,7 @@ class SearchComponent extends React.Component {
         <li>{place.name}/></li>
       );
     });
+    let variants = _.pluck(this.state.places, 'name');
     console.log(this.state.places);
     let onSearch = function() {
       //Actions.requestFlickrData(document.getElementById("search-text").value);
@@ -65,7 +67,13 @@ class SearchComponent extends React.Component {
                        suggestionRenderer={renderSuggestion}
                        suggestionValue={item => item.name + ' (' + item.stats.checkinsCount + ')'}
                        showWhen={input => input.trim().length >= 5} />*/}
-          <ul>{places}</ul>
+          {/*<ul>{places}</ul>*/}
+          <ReactTypeahead.Typeahead
+              name="myTypeahead"
+              options={variants}
+              maxVisible={15}
+              onKeyUp={ e => { if (e.target.value.length > 3) Actions.request4SquareData(e.target.value); } }
+              />
         </div>
       </div>
     );
