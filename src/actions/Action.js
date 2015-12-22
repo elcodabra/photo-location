@@ -17,6 +17,22 @@ export default class Actions {
     dispatcher.dispatch('PROCESS-INSTA-DATA', data);
   }
 
+  static requestInstaGetLocation(foursquare_id) {
+    dispatcher.dispatch('REQUEST-INSTA-GET-LOCATION', { foursquare_id: foursquare_id });
+  }
+
+  static processInstaGetLocation(data) {
+    dispatcher.dispatch('PROCESS-INSTA-GET-LOCATION', data);
+  }
+
+  static requestInstaSearch(data) {
+    dispatcher.dispatch('REQUEST-INSTA-SEARCH', { lat: data.latitude, lng: data.longitude });
+  }
+
+  static processInstaSearch(data) {
+    dispatcher.dispatch('PROCESS-INSTA-SEARCH', data);
+  }
+
   static requestFlickrData(tag) {
     dispatcher.dispatch('REQUEST-FLICKR-DATA', { tag: tag });
   }

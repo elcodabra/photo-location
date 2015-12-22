@@ -32,12 +32,11 @@ class SearchComponent extends React.Component {
         <li>{place.name}/></li>
       );
     });
-    let variants = _.pluck(this.state.places, 'name');
-    console.log(this.state.places);
+    let variants = this.state.places; // _.pluck(this.state.places, 'name');
     console.log(variants);
     let onSearch = function() {
       //Actions.requestFlickrData(document.getElementById("search-text").value);
-      Actions.request4SquareData(document.getElementById("search-text").value);
+      //Actions.request4SquareData(document.getElementById("search-text").value);
       Actions.requestInstaTagData(document.getElementById("search-text").value);
     };
     function getSuggestions(input, callback) {
@@ -74,6 +73,9 @@ class SearchComponent extends React.Component {
               options={variants}
               maxVisible={15}
               onKeyUp={ e => { if (e.target.value.length > 3) Actions.request4SquareData(e.target.value); } }
+              filterOption={ (input, option) => { /*console.log('filterOption:',input, option);*/ return true; } }
+              displayOption={ (option, index) => { /*console.log('displayOption:', option, index);*/ return option.name + '(' + option.stats.checkinsCount + ')'; }}
+              onOptionSelected={ o => { console.log(o); Actions.requestInstaGetLocation(o.id); } }
               />
         </div>
       </div>

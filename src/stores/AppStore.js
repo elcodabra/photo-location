@@ -56,6 +56,35 @@ class AppStore extends Store {
         this.set('images', data.items);
         break;
 
+      case 'REQUEST-INSTA-GET-LOCATION':
+        $.ajax({
+          url: "https://api.instagram.com/v1/locations/search?client_id=e050a30d1667451cbc3598f3cce20530&foursquare_v2_id=" + data.foursquare_id,
+          jsonp: "callback",
+          dataType: "jsonp"
+        }).done(response => {
+          //Actions.processInstaGetLocation(response);
+          Actions.requestInstaSearch(response.data[0]);
+        });
+        break;
+
+      case 'PROCESS-INSTA-SEARCH':
+        this.set('instaData', data.data);
+        break;
+
+      case 'REQUEST-INSTA-SEARCH':
+        $.ajax({
+          url: "https://api.instagram.com/v1/media/search?client_id=e050a30d1667451cbc3598f3cce20530&lng=" + data.lng + '&lat=' + data.lat,
+          jsonp: "callback",
+          dataType: "jsonp"
+        }).done(response => {
+          Actions.processInstaSearch(response);
+        });
+        break;
+
+      case 'PROCESS-INSTA-GET-LOCATION':
+        this.set('instaLocation', data.data);
+        break;
+
       case 'REQUEST-INSTA-TAG-DATA':
         let lastInstaRequest = this.get('lastInstaTagRequest');
         let currentInstaTime = Date.now;
