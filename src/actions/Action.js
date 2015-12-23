@@ -5,8 +5,8 @@ export default class Actions {
     dispatcher.dispatch('NAVIGATE', { location: newRoute });
   }
 
-  static changeGridData(source, target) {
-    dispatcher.dispatch('CHANGE-GRID-DATA',  { source: source, target: target });
+  static sortGridData(source, target) {
+    dispatcher.dispatch('SORT-GRID-DATA',  { source: source, target: target });
   }
 
   static requestInstaData(lat, lng) {

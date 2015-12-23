@@ -56,7 +56,7 @@ class AppStore extends Store {
         this.set('images', data.items);
         break;
 
-      case 'CHANGE-GRID-DATA':
+      case 'SORT-GRID-DATA':
         var screens = this.get('instaData');
         data.source = _.find(screens, {key: parseInt(data.source, 10)});
         data.target = _.find(screens, {key: parseInt(data.target, 10)});
@@ -89,17 +89,13 @@ class AppStore extends Store {
         });
         break;
 
-      case 'PROCESS-INSTA-SEARCH':
-        this.set('instaData', _.pluck(_.filter(data.data, { type: 'image' }), 'images').map((item, index) => _.assign(item, { key: index, sort: index })) );
-        break;
-
       case 'REQUEST-INSTA-SEARCH':
         $.ajax({
           url: "https://api.instagram.com/v1/media/search?client_id=e050a30d1667451cbc3598f3cce20530&lng=" + data.lng + '&lat=' + data.lat,
           jsonp: "callback",
           dataType: "jsonp"
         }).done(response => {
-          Actions.processInstaSearch(response);
+          Actions.processInstaData(response);
         });
         break;
 
