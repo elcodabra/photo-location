@@ -40,32 +40,11 @@ class PhotoGalleryComponent extends React.Component {
                 <a className="thumbnail"><img src={image.low_resolution.url}/></a>
             );
         });*/
-        var screens = this.state.images; //this.state.items.screens;
         var displayObject = (<DisplayObject/>), zoom = 0.7;
         var render = function(){ ReactDOM.render(<AppComponent />, document.getElementById('app')); };
         //Change the item's sort order
         var onMove = function(source, target){
             Actions.sortGridData(source, target);
-          /*
-            source = _.find(screens, {key: parseInt(source, 10)});
-            target = _.find(screens, {key: parseInt(target, 10)});
-
-            var targetSort = target.sort;
-
-            //CAREFUL, For maximum performance we must maintain the array's order, but change sort
-            screens.forEach(function(item){
-                //Decrement sorts between positions when target is greater
-                if(target.sort > source.sort && (item.sort <= target.sort && item.sort > source.sort)){
-                    item.sort --;
-                    //Incremenet sorts between positions when source is greator
-                }else if(item.sort >= target.sort && item.sort < source.sort){
-                    item.sort ++;
-                }
-            });
-
-            source.sort = targetSort;
-            //render();
-          */
         };
 
         var onMoveDebounced = _.debounce(onMove, 80);
@@ -79,7 +58,7 @@ class PhotoGalleryComponent extends React.Component {
         return (
             <div id="photo-gallery" className="photogallery-component">
                 <div><h1>InstaPhoto</h1>{/*images*/}</div>
-                <AbsoluteGrid items={screens}
+                <AbsoluteGrid items={this.state.images}
                               displayObject={displayObject}
                               onMove={onMoveDebounced}
                               dragEnabled={true}
