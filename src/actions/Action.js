@@ -5,6 +5,10 @@ export default class Actions {
     dispatcher.dispatch('NAVIGATE', { location: newRoute });
   }
 
+  static changeGridData(source, target) {
+    dispatcher.dispatch('CHANGE-GRID-DATA',  { source: source, target: target });
+  }
+
   static requestInstaData(lat, lng) {
     dispatcher.dispatch('REQUEST-INSTA-DATA', { lat: lat, lng: lng });
   }

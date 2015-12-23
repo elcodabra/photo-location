@@ -56,6 +56,28 @@ class AppStore extends Store {
         this.set('images', data.items);
         break;
 
+      case 'CHANGE-GRID-DATA':
+        var screens = this.get('instaData');
+        data.source = _.find(screens, {key: parseInt(data.source, 10)});
+        data.target = _.find(screens, {key: parseInt(data.target, 10)});
+
+        var targetSort = data.target.sort;
+
+        //CAREFUL, For maximum performance we must maintain the array's order, but change sort
+        screens.forEach(function(item){
+          //Decrement sorts between positions when target is greater
+          if(data.target.sort > data.source.sort && (item.sort <= data.target.sort && item.sort > data.source.sort)){
+            item.sort --;
+            //Incremenet sorts between positions when source is greator
+          }else if(item.sort >= data.target.sort && item.sort < data.source.sort){
+            item.sort ++;
+          }
+        });
+
+        data.source.sort = targetSort;
+        this.set('instaData', screens);
+        break;
+
       case 'REQUEST-INSTA-GET-LOCATION':
         $.ajax({
           url: "https://api.instagram.com/v1/locations/search?client_id=e050a30d1667451cbc3598f3cce20530&foursquare_v2_id=" + data.foursquare_id,
@@ -68,7 +90,7 @@ class AppStore extends Store {
         break;
 
       case 'PROCESS-INSTA-SEARCH':
-        this.set('instaData', data.data);
+        this.set('instaData', _.pluck(_.filter(data.data, { type: 'image' }), 'images').map((item, index) => _.assign(item, { key: index, sort: index })) );
         break;
 
       case 'REQUEST-INSTA-SEARCH':
@@ -103,7 +125,7 @@ class AppStore extends Store {
         break;
 
       case 'PROCESS-INSTA-DATA':
-        this.set('instaData', data.data);
+        this.set('instaData', _.pluck(_.filter(data.data, { type: 'image' }), 'images').map((item, index) => _.assign(item, { key: index, sort: index })));
         break;
 
       case 'REQUEST-4SQUARE-DATA':

@@ -30,7 +30,7 @@ class PhotoGalleryComponent extends React.Component {
 
     updateState() {
         this.setState({
-            images: _.pluck(_.filter(appStore.get('instaData'), { type: 'image' }), 'images').map((item, index) => _.assign(item, { key: index, sort: index }))
+            images: appStore.get('instaData')
         });
     }
     render() {
@@ -45,6 +45,8 @@ class PhotoGalleryComponent extends React.Component {
         var render = function(){ ReactDOM.render(<AppComponent />, document.getElementById('app')); };
         //Change the item's sort order
         var onMove = function(source, target){
+            Actions.changeGridData(source, target);
+          /*
             source = _.find(screens, {key: parseInt(source, 10)});
             target = _.find(screens, {key: parseInt(target, 10)});
 
@@ -62,7 +64,8 @@ class PhotoGalleryComponent extends React.Component {
             });
 
             source.sort = targetSort;
-            render();
+            //render();
+          */
         };
 
         var onMoveDebounced = _.debounce(onMove, 80);
