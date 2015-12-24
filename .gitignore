@@ -31,3 +31,6 @@ node_modules
 
 # Bower
 bower_components/
+
+# config with secret
+src/config.js

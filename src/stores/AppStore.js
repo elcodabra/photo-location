@@ -2,6 +2,7 @@ import Store from '../lib/Store';
 import find from 'lodash/collection/find';
 import dispatcher from '../dispatcher/Dispatcher';
 import Actions from '../actions/Action';
+import config from '../config.js';
 import $ from 'jquery';
 
 class AppStore extends Store {
@@ -80,7 +81,7 @@ class AppStore extends Store {
 
       case 'REQUEST-INSTA-GET-LOCATION':
         $.ajax({
-          url: "https://api.instagram.com/v1/locations/search?client_id=e050a30d1667451cbc3598f3cce20530&foursquare_v2_id=" + data.foursquare_id,
+          url: "https://api.instagram.com/v1/locations/search?client_id=" + config.instagram_client_id + "&foursquare_v2_id=" + data.foursquare_id,
           jsonp: "callback",
           dataType: "jsonp"
         }).done(response => {
@@ -91,7 +92,7 @@ class AppStore extends Store {
 
       case 'REQUEST-INSTA-SEARCH':
         $.ajax({
-          url: "https://api.instagram.com/v1/media/search?client_id=e050a30d1667451cbc3598f3cce20530&lng=" + data.lng + '&lat=' + data.lat,
+          url: "https://api.instagram.com/v1/media/search?client_id=" + config.instagram_client_id + "&lng=" + data.lng + '&lat=' + data.lat,
           jsonp: "callback",
           dataType: "jsonp"
         }).done(response => {
@@ -111,8 +112,7 @@ class AppStore extends Store {
           return;
         }
         $.ajax({
-          //url: "https://api.instagram.com/v1/media/search?lat=48.858093&lng=2.294694&client_id=e050a30d1667451cbc3598f3cce20530",
-          url: "https://api.instagram.com/v1/tags/" + data.tag + "/media/recent?client_id=e050a30d1667451cbc3598f3cce20530",
+          url: "https://api.instagram.com/v1/tags/" + data.tag + "/media/recent?client_id=" + config.instagram_client_id,
           jsonp: "callback",
           dataType: "jsonp"
         }).done(response => {
@@ -126,7 +126,7 @@ class AppStore extends Store {
 
       case 'REQUEST-4SQUARE-DATA':
         $.ajax({
-          url: "https://api.foursquare.com/v2/venues/search?near=" + data.tag + "&client_id=DVIANEZN3RGP1LFGSJNTYYGZKBBSK5PEVMUHUXB0NBGVB5GA&client_secret=WG10HBEMTT5TK5IJOREQHPRGY5YGFZML22SY4D1SY21NY1WH&v=20151215",
+          url: "https://api.foursquare.com/v2/venues/search?near=" + data.tag + "&client_id=" + config.foursquare_client_id + "&client_secret=" + config.foursquare_client_secret + "&v=20151224",
           jsonp: "callback",
           dataType: "jsonp"
         }).done(response => {
