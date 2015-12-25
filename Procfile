@@ -1,1 +1,1 @@
-web: node server.js --env=dist
+web: npm run copy & webpack --env=dist
