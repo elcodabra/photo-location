@@ -1,1 +1,1 @@
-web: npm run copy & webpack --env=dist
+web: npm start
