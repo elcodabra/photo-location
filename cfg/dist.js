@@ -28,8 +28,8 @@ var config = _.merge({
 
 config.module.loaders.push({
   test: /\.(js|jsx)$/,
-  loader: 'babel',
-  include: path.join(__dirname, '/../src')
+  loader: 'babel?stage=0&breakConfig=true',
+  include: [ path.join(__dirname, '/../src'), path.join(__dirname, '/../node_modules/react-absolute-grid')]
 });
 
 module.exports = config;
