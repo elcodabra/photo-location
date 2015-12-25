@@ -2,7 +2,7 @@ import Store from '../lib/Store';
 import find from 'lodash/collection/find';
 import dispatcher from '../dispatcher/Dispatcher';
 import Actions from '../actions/Action';
-import config from '../config.js';
+//import config from '../config.js';
 import $ from 'jquery';
 
 class AppStore extends Store {
@@ -81,7 +81,7 @@ class AppStore extends Store {
 
       case 'REQUEST-INSTA-GET-LOCATION':
         $.ajax({
-          url: "https://api.instagram.com/v1/locations/search?client_id=" + config.instagram_client_id + "&foursquare_v2_id=" + data.foursquare_id,
+          url: "https://api.instagram.com/v1/locations/search?client_id=" + process.env..instagram_client_id + "&foursquare_v2_id=" + data.foursquare_id,
           jsonp: "callback",
           dataType: "jsonp"
         }).done(response => {
@@ -92,7 +92,7 @@ class AppStore extends Store {
 
       case 'REQUEST-INSTA-SEARCH':
         $.ajax({
-          url: "https://api.instagram.com/v1/media/search?client_id=" + config.instagram_client_id + "&lng=" + data.lng + '&lat=' + data.lat,
+          url: "https://api.instagram.com/v1/media/search?client_id=" + process.env..instagram_client_id + "&lng=" + data.lng + '&lat=' + data.lat,
           jsonp: "callback",
           dataType: "jsonp"
         }).done(response => {
@@ -112,7 +112,7 @@ class AppStore extends Store {
           return;
         }
         $.ajax({
-          url: "https://api.instagram.com/v1/tags/" + data.tag + "/media/recent?client_id=" + config.instagram_client_id,
+          url: "https://api.instagram.com/v1/tags/" + data.tag + "/media/recent?client_id=" + process.env..instagram_client_id,
           jsonp: "callback",
           dataType: "jsonp"
         }).done(response => {
@@ -126,7 +126,7 @@ class AppStore extends Store {
 
       case 'REQUEST-4SQUARE-DATA':
         $.ajax({
-          url: "https://api.foursquare.com/v2/venues/search?near=" + data.tag + "&client_id=" + config.foursquare_client_id + "&client_secret=" + config.foursquare_client_secret + "&v=20151224",
+          url: "https://api.foursquare.com/v2/venues/search?near=" + data.tag + "&client_id=" + process.env..foursquare_client_id + "&client_secret=" + process.env..foursquare_client_secret + "&v=20151224",
           jsonp: "callback",
           dataType: "jsonp"
         }).done(response => {
