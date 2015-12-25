@@ -1,6 +1,6 @@
 var path = require('path');
 
-var port = 8000;
+var port = process.env.PORT || 8000;
 var srcPath = path.join(__dirname, '/../src');
 var publicPath = '/assets/';
 
