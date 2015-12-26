@@ -33,4 +33,4 @@ node_modules
 bower_components/
 
 # config with secret
-src/config.js
+src/config.json
