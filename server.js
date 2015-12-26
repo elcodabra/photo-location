@@ -7,9 +7,8 @@ var config = require('./webpack.config');
 var compiler = webpack(config);
 var app = express();
 
-//console.log(compiler);
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-//process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var isDev = process.env.NODE_ENV === 'development';
 
 if (isDev) {
