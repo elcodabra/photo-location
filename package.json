@@ -6,6 +6,7 @@
   "main": "",
   "scripts": {
     "start": "node server.js --env=dev",
+    "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "test": "karma start",
     "test:watch": "karma start --autoWatch=true --singleRun=false",
     "posttest": "npm run lint",
