@@ -21,7 +21,7 @@
     "release:patch": "npm version patch && npm publish && git push --follow-tags"
   },
   "repository": "",
-  "keywords": [],
+  "keywords": ["instagram api","webpack","react","flux","es6"],
   "author": "sani-banani",
   "devDependencies": {
     "babel-core": "^5.8.22",
