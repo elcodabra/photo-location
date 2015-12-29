@@ -5,6 +5,10 @@ import React from 'react';
 require('styles//DisplayObject.less');
 
 class DisplayObjectComponent extends React.Component {
+
+  handleClick(evt) {
+    evt.target.style.backgroundImage = `url('${this.props.item.standard_resolution.url}')`;
+  }
   render() {
     const itemStyle = {
       display: 'block',
@@ -12,7 +16,7 @@ class DisplayObjectComponent extends React.Component {
       height: '100%',
       backgroundImage: `url('${this.props.item.low_resolution.url}')`
     };
-    return <div style={itemStyle} className="gridItem"><span className="name">{this.props.item.sort}</span></div>;
+    return <div style={itemStyle} className="gridItem" onClick={this.handleClick.bind(this)}><span className="name">{this.props.item.sort}</span></div>;
   }
 }
 
