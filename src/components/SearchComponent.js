@@ -31,6 +31,11 @@ class SearchComponent extends React.Component {
       //Actions.request4SquareData(document.getElementById("search-text").value);
       Actions.requestInstaTagData(document.getElementById("search-text").value);
     };
+    let onRefresh = function() {
+        appStore.set("isRefresh", true);
+        Actions.requestInstaSearch({ latitude: appStore.get('lat'), longitude: appStore.get('lng') });
+    };
+
     return (
       <div className="search-component">
         {/*<div>
@@ -45,9 +50,9 @@ class SearchComponent extends React.Component {
               onKeyUp={ e => { if (e.target.value.length > 3) Actions.request4SquareData(e.target.value); } }
               filterOption={ (input, option) => { /*console.log('filterOption:',input, option);*/ return true; } }
               displayOption={ (option, index) => { /*console.log('displayOption:', option, index);*/ return option.name + '(' + option.stats.checkinsCount + ')'; }}
-              onOptionSelected={ o => { Actions.requestInstaSearch({ latitude: o.location.lat, longitude: o.location.lng }); } }
+              onOptionSelected={ o => { appStore.set("isRefresh", false); Actions.requestInstaSearch({ latitude: o.location.lat, longitude: o.location.lng }); appStore.set('lat', o.location.lat); appStore.set('lng', o.location.lng);  } }
               />
-          <button onClick={onSearch}>Refresh</button>
+          <button onClick={onRefresh}>Refresh</button>
       </div>
     );
   }

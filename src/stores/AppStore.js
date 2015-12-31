@@ -25,6 +25,9 @@ class AppStore extends Store {
     this.initialize('lastFlickrRequest', 0);
     this.initialize('lastInstaTagRequest', 0);
     this.initialize('imgURL', '');
+    this.initialize('lat', 0);
+    this.initialize('lng', 0);
+    this.initialize('isRefresh', false);
   }
 
   onAction(actionType, data) {
@@ -124,7 +127,12 @@ class AppStore extends Store {
         break;
 
       case 'PROCESS-INSTA-DATA':
-        this.set('instaData', _.pluck(_.filter(data.data, { type: 'image' }), 'images').map((item, index) => _.assign(item, { key: index, sort: index })));
+        let newInstaData = _.pluck(_.filter(data.data, { type: 'image' }), 'images');
+        if (this.get("isRefresh") === true) {
+          let oldInstaData = this.get('instaData');
+          newInstaData = _.uniq(_.union(newInstaData, oldInstaData));
+        }
+        this.set('instaData', newInstaData.map((item, index) => _.assign(item, { key: index, sort: index })));
         break;
 
       case 'REQUEST-4SQUARE-DATA':
