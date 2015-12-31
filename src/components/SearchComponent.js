@@ -42,6 +42,7 @@ class SearchComponent extends React.Component {
               name="myTypeahead"
               options={this.state.places}
               maxVisible={15}
+              placeholder='Type and select location'
               onKeyUp={ e => { if (e.target.value.length > 3) Actions.request4SquareData(e.target.value); } }
               filterOption={ (input, option) => { /*console.log('filterOption:',input, option);*/ return true; } }
               displayOption={ (option, index) => { /*console.log('displayOption:', option, index);*/ return option.name + '(' + option.stats.checkinsCount + ')'; }}
