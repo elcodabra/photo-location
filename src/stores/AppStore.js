@@ -129,7 +129,8 @@ class AppStore extends Store {
       case 'PROCESS-INSTA-DATA':
         let newInstaData = _.pluck(_.filter(data.data, { type: 'image' }), 'images');
         if (this.get("isRefresh") === true) {
-          let oldInstaData = this.get('instaData');
+          // TODO: return unique of union old and new arrays
+          let oldInstaData = this.get('instaData').map((item, index) => { delete item.key; delete item.sort; return item; } );
           newInstaData = _.uniq(_.union(newInstaData, oldInstaData));
         }
         this.set('instaData', newInstaData.map((item, index) => _.assign(item, { key: index, sort: index })));
