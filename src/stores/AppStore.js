@@ -127,11 +127,10 @@ class AppStore extends Store {
         break;
 
       case 'PROCESS-INSTA-DATA':
-        let newInstaData = _.pluck(_.filter(data.data, { type: 'image' }), 'images');
+        let newInstaData = _.filter(data.data, { type: 'image' }).map( item => { return { id:item.id, link:item.link, low_resolution:item.images.low_resolution, standard_resolution:item.images.standard_resolution } } );
         if (this.get("isRefresh") === true) {
-          // TODO: return unique of union old and new arrays
-          let oldInstaData = this.get('instaData').map((item, index) => { delete item.key; delete item.sort; return item; } );
-          newInstaData = _.uniq(_.union(newInstaData, oldInstaData));
+          let oldInstaData = this.get('instaData').map( item => { delete item.key; delete item.sort; return item; } );
+          newInstaData = _.uniq(newInstaData.concat(oldInstaData),'id');
         }
         this.set('instaData', newInstaData.map((item, index) => _.assign(item, { key: index, sort: index })));
         break;
