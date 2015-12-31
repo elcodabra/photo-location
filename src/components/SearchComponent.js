@@ -34,11 +34,10 @@ class SearchComponent extends React.Component {
     };
     return (
       <div className="search-component">
-        <div>
+        {/*<div>
           <input id="search-text" type="text" />
           <button onClick={onSearch}>Search</button>
-        </div>
-        <div>
+        </div>*/}
           <ReactTypeahead.Typeahead
               name="myTypeahead"
               options={this.state.places}
@@ -48,7 +47,6 @@ class SearchComponent extends React.Component {
               displayOption={ (option, index) => { /*console.log('displayOption:', option, index);*/ return option.name + '(' + option.stats.checkinsCount + ')'; }}
               onOptionSelected={ o => { console.log(o); Actions.requestInstaGetLocation(o.id); } }
               />
-        </div>
       </div>
     );
   }

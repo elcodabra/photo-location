@@ -59,7 +59,7 @@ class PhotoGalleryComponent extends React.Component {
 
         return (
             <div id="photo-gallery" className="photogallery-component">
-                <div><h1>{this.state.tag}</h1>{/*images*/}</div>
+                {/*<div><h1>{this.state.tag}</h1></div>*/}
                 <AbsoluteGrid items={this.state.images}
                               displayObject={displayObject}
                               onMove={onMoveDebounced}

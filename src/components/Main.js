@@ -3,15 +3,14 @@ require('styles/App.css');
 
 import React from 'react';
 import PhotoGallery from './PhotoGalleryComponent';
-import Search from './SearchComponent'
-import Flickr from './Flickr'
-import * as data from './sampleData.js';
+import Search from './SearchComponent';
+import Flickr from './Flickr';
 
 class AppComponent extends React.Component {
   // Constructor
   constructor(props) {
     super(props);
-    this.state = {items: data};
+    this.state = {items: []};
   }
   setItems(items) {
     this.setState({items: items})
