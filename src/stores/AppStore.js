@@ -24,7 +24,7 @@ class AppStore extends Store {
     this.initialize('instaData', []);
     this.initialize('lastFlickrRequest', 0);
     this.initialize('lastInstaTagRequest', 0);
-    this.initialize('imgURL', '');
+    this.initialize('currentImage', {});
     this.initialize('lat', 0);
     this.initialize('lng', 0);
     this.initialize('isRefresh', false);

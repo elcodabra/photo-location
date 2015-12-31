@@ -35,13 +35,7 @@ class PhotoGalleryComponent extends React.Component {
         });
     }
     render() {
-        let imgURL = appStore.get('imgURL');
-        // FIXME: see /react-absolute-grid/demo.js
-        /*let images = this.state.images.map(image => {
-            return (
-                <a className="thumbnail"><img src={image.low_resolution.url}/></a>
-            );
-        });*/
+        let currentImage = appStore.get('currentImage');
         var displayObject = (<DisplayObject/>), zoom = 0.7;
         var render = function(){ ReactDOM.render(<AppComponent />, document.getElementById('app')); };
         //Change the item's sort order
@@ -69,7 +63,7 @@ class PhotoGalleryComponent extends React.Component {
                               verticalMargin={42}
                               itemWidth={250}
                               itemHeight={250}/>
-                <Modal id='' imageURL={imgURL} />
+                <Modal id='' currentImage={currentImage} />
             </div>
         );
     }

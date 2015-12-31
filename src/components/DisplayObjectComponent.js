@@ -9,7 +9,7 @@ require('styles//DisplayObject.less');
 class DisplayObjectComponent extends React.Component {
 
   handleClick(evt) {
-    appStore.set('imgURL',this.props.item.standard_resolution.url);
+    appStore.set('currentImage',this.props.item);
     //evt.target.style.backgroundImage = `url('${this.props.item.standard_resolution.url}')`;
 
   }

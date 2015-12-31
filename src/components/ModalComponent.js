@@ -11,9 +11,9 @@ class ModalComponent extends React.Component {
         <div className="lightbox" id={'image'+this.props.id}>
           <div className="box">
             <a className="close" href="#">X</a>
-            <p className="title">View Image</p>
+            <a className="title" href={this.props.currentImage.link}>{this.props.currentImage.link}</a>
             <div className="content">
-              <img src={this.props.imageURL} />
+              <img src={this.props.currentImage.standard_resolution ? this.props.currentImage.standard_resolution.url : ''} />
             </div>
           </div>
         </div>
