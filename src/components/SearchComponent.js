@@ -26,7 +26,6 @@ class SearchComponent extends React.Component {
   }
 
   render() {
-    console.log(this.state.places);
     let onSearch = function() {
       //Actions.requestFlickrData(document.getElementById("search-text").value);
       //Actions.request4SquareData(document.getElementById("search-text").value);
@@ -46,7 +45,7 @@ class SearchComponent extends React.Component {
               onKeyUp={ e => { if (e.target.value.length > 3) Actions.request4SquareData(e.target.value); } }
               filterOption={ (input, option) => { /*console.log('filterOption:',input, option);*/ return true; } }
               displayOption={ (option, index) => { /*console.log('displayOption:', option, index);*/ return option.name + '(' + option.stats.checkinsCount + ')'; }}
-              onOptionSelected={ o => { console.log(o); Actions.requestInstaGetLocation(o.id); } }
+              onOptionSelected={ o => { Actions.requestInstaSearch({ latitude: o.location.lat, longitude: o.location.lng }); } }
               />
       </div>
     );
