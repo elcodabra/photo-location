@@ -47,6 +47,7 @@ class SearchComponent extends React.Component {
               displayOption={ (option, index) => { /*console.log('displayOption:', option, index);*/ return option.name + '(' + option.stats.checkinsCount + ')'; }}
               onOptionSelected={ o => { Actions.requestInstaSearch({ latitude: o.location.lat, longitude: o.location.lng }); } }
               />
+          <button onClick={onSearch}>Refresh</button>
       </div>
     );
   }
