@@ -4,7 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AbsoluteGrid from 'react-absolute-grid/lib/AbsoluteGrid.jsx';
 import DisplayObject from './DisplayObjectComponent';
-import AppComponent from './Main'
+import AppComponent from './Main';
+import Modal from './ModalComponent';
 import Actions from '../actions/Action';
 import appStore from '../stores/AppStore';
 import * as _ from 'lodash';
@@ -34,6 +35,7 @@ class PhotoGalleryComponent extends React.Component {
         });
     }
     render() {
+        let imgURL = appStore.get('imgURL');
         // FIXME: see /react-absolute-grid/demo.js
         /*let images = this.state.images.map(image => {
             return (
@@ -67,6 +69,7 @@ class PhotoGalleryComponent extends React.Component {
                               verticalMargin={42}
                               itemWidth={250}
                               itemHeight={250}/>
+                <Modal id='' imageURL={imgURL} />
             </div>
         );
     }
