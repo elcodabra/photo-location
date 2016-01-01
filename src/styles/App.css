@@ -53,3 +53,15 @@ h1{
   color:#555;
   text-transform: capitalize;
 }
+
+button {
+  background: #19d10b;
+  padding: 11px 45px;
+  margin: 15px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+}
