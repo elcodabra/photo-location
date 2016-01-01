@@ -1,10 +1,13 @@
 'use strict';
 
 import React from 'react';
+import * as $ from 'jquery';
+import JSZip from 'jszip';
+import ReactTypeahead from 'react-typeahead';
+import imageToURI from '../lib/ImageDataUri';
+import FileSaver from '../lib/FileSaver';
 import Actions from '../actions/Action';
 import appStore from '../stores/AppStore';
-import ReactTypeahead from 'react-typeahead';
-import * as $ from 'jquery';
 
 require('styles//Search.less');
 
@@ -27,13 +30,30 @@ class SearchComponent extends React.Component {
 
   render() {
     let onSearch = function() {
-      //Actions.requestFlickrData(document.getElementById("search-text").value);
-      //Actions.request4SquareData(document.getElementById("search-text").value);
       Actions.requestInstaTagData(document.getElementById("search-text").value);
     };
     let onRefresh = function() {
         appStore.set("isRefresh", true);
         Actions.requestInstaSearch({ latitude: appStore.get('lat'), longitude: appStore.get('lng') });
+    };
+    let onSave = function() {
+        let zip = new JSZip();
+        let images = appStore.get("instaData").map( image => {
+            return new Promise( (resolve, reject) => {
+                imageToURI(image.standard_resolution.url, (err, uri) => {
+                    if (!err) {
+                        zip.file(image.sort + ".jpg", uri, {base64: true});
+                        //resolve(uri);
+                        resolve();
+                    }
+                });
+            });
+        });
+        Promise.all(images).then( () => {
+            console.log('Promises All!');
+            var content = zip.generate({type:"blob"});
+            FileSaver.saveAs(content, "insta_photos.zip");
+        });
     };
 
     return (
@@ -53,6 +73,7 @@ class SearchComponent extends React.Component {
               onOptionSelected={ o => { appStore.set("isRefresh", false); Actions.requestInstaSearch({ latitude: o.location.lat, longitude: o.location.lng }); appStore.set('lat', o.location.lat); appStore.set('lng', o.location.lng);  } }
               />
           <button onClick={onRefresh}>Refresh</button>
+          <button onClick={onSave}>Save</button>
       </div>
     );
   }
