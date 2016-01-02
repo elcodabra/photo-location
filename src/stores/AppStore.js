@@ -1,5 +1,5 @@
 import Store from '../lib/Store';
-import find from 'lodash/collection/find';
+//import find from 'lodash/collection/find';
 import dispatcher from '../dispatcher/Dispatcher';
 import Actions from '../actions/Action';
 import getSessionSecrets from '../lib/SessionSecrets';

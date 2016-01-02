@@ -4,14 +4,16 @@ import React from 'react';
 import Modal from './ModalComponent';
 import appStore from '../stores/AppStore';
 
-require('styles//DisplayObject.less');
-
 class DisplayObjectComponent extends React.Component {
 
   handleClick(evt) {
     appStore.set('currentImage',this.props.item);
     //evt.target.style.backgroundImage = `url('${this.props.item.standard_resolution.url}')`;
 
+  }
+  onRemove(elem) {
+    let instaData = _.reject(appStore.get('instaData'),{key: parseInt(elem.target.id)});
+    appStore.set('instaData', instaData);
   }
   render() {
     const itemStyle = {
@@ -22,6 +24,9 @@ class DisplayObjectComponent extends React.Component {
     };
     return (
         <div style={itemStyle} className="gridItem">
+          <div className="remove_div">
+            <img id={this.props.item.key} src="/images/delete.png" className="remove_icon" onClick={this.onRemove.bind(this)}/>
+          </div>
           <a href="#image" className="name" onClick={this.handleClick.bind(this)}>{this.props.item.sort}</a>
           {/*<Modal id={this.props.item.sort} imageURL={this.props.item.standard_resolution.url} />*/}
         </div>
