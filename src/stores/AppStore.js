@@ -131,7 +131,7 @@ class AppStore extends Store {
       case 'PROCESS-INSTA-DATA':
         let newInstaData = _.filter(data.data, { type: 'image' }).map( item => { return { id:item.id, link:item.link, low_resolution:item.images.low_resolution, standard_resolution:item.images.standard_resolution } } );
         if (this.get("isRefresh") === true) {
-          let oldInstaData = this.get('instaData').map( item => { delete item.key; delete item.sort; return item; } );
+          let oldInstaData = _.sortBy(this.get('instaData'),'sort').map( item => { delete item.key; delete item.sort; return item; } );
           newInstaData = _.uniq(oldInstaData.concat(newInstaData),'id');
         }
         this.set('instaData', newInstaData.map((item, index) => _.assign(item, { key: index, sort: index })));
