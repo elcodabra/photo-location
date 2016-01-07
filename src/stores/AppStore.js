@@ -21,6 +21,7 @@ class AppStore extends Store {
     this.initialize('route', this.getNavigationRoute(window.location.hash.substr(1)));
     this.initialize('images', []);
     this.initialize('venues', []);
+    this.initialize('images_edit', []);
     this.initialize('instaData', []);
     this.initialize('lastFlickrRequest', 0);
     this.initialize('lastInstaTagRequest', 0);

@@ -53,6 +53,8 @@ class SearchComponent extends React.Component {
                         zip.file(image.sort + ".jpg", uri, {base64: true});
                         //resolve(uri);
                         resolve();
+                    } else {
+                        reject();
                     }
                 });
             });
