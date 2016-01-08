@@ -1,0 +1,71 @@
+.image-edit-component {
+  text-align: center;
+  .component {
+    position: relative;
+    padding: 4em;
+    height: 420px;
+    width: 420px;
+    border: 2px dashed grey;
+    margin-bottom: 15px;
+    //max-width: 901px;
+    overflow: hidden;
+
+    .resize-container {
+      position: relative;
+      display: inline-block;
+      cursor: move;
+      margin: 0 auto;
+
+      .resize-handle-ne,
+      .resize-handle-ne,
+      .resize-handle-se,
+      .resize-handle-nw,
+      .resize-handle-sw {
+        position: absolute;
+        display: block;
+        width: 10px;
+        height: 10px;
+        background: rgba(222,60,80,.9);
+        z-index: 999;
+      }
+
+      .resize-handle-nw {
+        top: -5px;
+        left: -5px;
+        cursor: nw-resize;
+      }
+
+      .resize-handle-sw {
+        bottom: -5px;
+        left: -5px;
+        cursor: sw-resize;
+      }
+
+      .resize-handle-ne {
+        top: -5px;
+        right: -5px;
+        cursor: ne-resize;
+      }
+
+      .resize-handle-se {
+        bottom: -5px;
+        right: -5px;
+        cursor: se-resize;
+      }
+    }
+
+    .resize-container img {
+      display: block;
+      width: 400px;
+      height: 400px;
+      opacity: .8;
+    }
+
+    .resize-container:hover img,
+    .resize-container:active img {
+      outline: 3px dashed rgba(222,60,80,.9);
+    }
+
+  }
+
+}
