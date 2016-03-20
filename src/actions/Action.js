@@ -50,6 +50,16 @@ export default class Actions {
   }
 
   static process4SquareData(data) {
-    dispatcher.dispatch('PROCESS-4SQUARE-DATA', data);
+    dispatcher.dispatch('PROCESS-4SQUARE-DATA', { venues: data.response.venues });
   }
+
+  static requestTagSearch(tag) {
+    dispatcher.dispatch('REQUEST-TAG-SEARCH', { tag: tag });
+  }
+
+  static processTagSearch(data) {
+    dispatcher.dispatch('PROCESS-TAG-SEARCH', { venues: data.data });
+  }
+
+
 }

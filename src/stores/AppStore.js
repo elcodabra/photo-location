@@ -146,7 +146,25 @@ class AppStore extends Store {
         break;
 
       case 'PROCESS-4SQUARE-DATA':
-        this.set('venues', data.response.venues);
+        var venues = data.venues.map( item => { return { 'name': item.name, 'location': item.location, 'media_count': item.stats.checkinsCount } });
+        if ( data.isConcat ) venues.concat(this.get('venues'));
+        this.set('venues', _.uniq( venues, 'name'));
+        break;
+
+      case 'REQUEST-TAG-SEARCH':
+        $.ajax({
+          url: "https://api.instagram.com/v1/tags/search?q=" + data.tag + "&client_id=" + this.config.instagram_client_id,
+          jsonp: "callback",
+          dataType: "jsonp"
+        }).done(response => {
+          Actions.processTagSearch(response);
+        });
+        break;
+
+      case 'PROCESS-TAG-SEARCH':
+        var venues = _.forEach( _.sortByOrder(data.venues, 'media_count', 'desc'), (o) => { o.name = '#' + o.name });
+        if ( data.isConcat ) venues.concat(this.get('venues'));
+        this.set('venues', _.uniq( venues, 'name'));
         break;
 
       default:
