@@ -21,6 +21,7 @@ class AppStore extends Store {
     this.initialize('route', this.getNavigationRoute(window.location.hash.substr(1)));
     this.initialize('images', []);
     this.initialize('venues', []);
+    this.initialize('search', '');
     this.initialize('instaData', []);
     this.initialize('lastFlickrRequest', 0);
     this.initialize('lastInstaTagRequest', 0);
@@ -141,14 +142,14 @@ class AppStore extends Store {
           jsonp: "callback",
           dataType: "jsonp"
         }).done(response => {
-          Actions.process4SquareData(response);
+          Actions.process4SquareData(response, this.get('search') == data.tag);
         });
         break;
 
       case 'PROCESS-4SQUARE-DATA':
-        var venues = data.venues.map( item => { return { 'name': item.name, 'location': item.location, 'media_count': item.stats.checkinsCount } });
-        if ( data.isConcat ) venues.concat(this.get('venues'));
-        this.set('venues', _.uniq( venues, 'name'));
+        var venues = data.venues.map( item => { return { 'name': item.name, 'location': item.location, 'media_count': item.stats.checkinsCount } }).slice(0,5);
+        debugger;
+        this.set('venues', venues.concat(data.isConcat ? this.get('venues') : []));
         break;
 
       case 'REQUEST-TAG-SEARCH':
@@ -157,14 +158,15 @@ class AppStore extends Store {
           jsonp: "callback",
           dataType: "jsonp"
         }).done(response => {
-          Actions.processTagSearch(response);
+          Actions.processTagSearch(response, this.get('search') == data.tag);
         });
         break;
 
       case 'PROCESS-TAG-SEARCH':
-        var venues = _.forEach( _.sortByOrder(data.venues, 'media_count', 'desc'), (o) => { o.name = '#' + o.name });
+        var venues = _.forEach( _.sortByOrder(data.venues, 'media_count', 'desc'), (o) => { o.name = '#' + o.name }).slice(0,5);
+        debugger;
         if ( data.isConcat ) venues.concat(this.get('venues'));
-        this.set('venues', _.uniq( venues, 'name'));
+        this.set('venues', venues.concat(data.isConcat ? this.get('venues') : []));
         break;
 
       default:

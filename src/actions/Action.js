@@ -49,16 +49,16 @@ export default class Actions {
     dispatcher.dispatch('REQUEST-4SQUARE-DATA', { tag: tag });
   }
 
-  static process4SquareData(data) {
-    dispatcher.dispatch('PROCESS-4SQUARE-DATA', { venues: data.response.venues });
+  static process4SquareData(data, isConcat) {
+    dispatcher.dispatch('PROCESS-4SQUARE-DATA', { venues: data.response.venues, isConcat: isConcat });
   }
 
   static requestTagSearch(tag) {
     dispatcher.dispatch('REQUEST-TAG-SEARCH', { tag: tag });
   }
 
-  static processTagSearch(data) {
-    dispatcher.dispatch('PROCESS-TAG-SEARCH', { venues: data.data });
+  static processTagSearch(data, isConcat) {
+    dispatcher.dispatch('PROCESS-TAG-SEARCH', { venues: data.data, isConcat: isConcat });
   }
 
 

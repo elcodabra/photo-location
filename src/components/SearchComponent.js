@@ -28,14 +28,15 @@ class SearchComponent extends React.Component {
   render() {
     function onSearch(event) {
       if (event.target.value.length > 2) {
+        appStore.set('search', event.target.value);
         if (event.target.value.startsWith('#')) {
           Actions.requestTagSearch(event.target.value.substr(1));
         } else {
-          //appStore.set('search', event.target.value);
-          //Actions.requestTagSearch(event.target.value);
+          Actions.requestTagSearch(event.target.value);
           Actions.request4SquareData(event.target.value);
         }
       }
+      appStore.set('venues', []);
     }
 
     function onSelected(o) {
