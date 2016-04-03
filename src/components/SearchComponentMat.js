@@ -56,7 +56,14 @@ class SearchComponentMat extends React.Component {
   };
 
   newRequest = (value) => {
-    console.log(_.filter(this.state.venues, {name: value}));
+    var venue = _.filter(this.state.venues, {name: value})[0];
+
+    if (!venue.location) {
+      Actions.requestInstaTagData(venue.name);
+    } else {
+      Actions.requestInstaSearch({ latitude: venue.location.lat, longitude: venue.location.lng });
+      //appStore.set('lat', venue.location.lat); appStore.set('lng', venue.location.lng);
+    }
   };
 
   render() {
