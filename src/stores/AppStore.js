@@ -147,8 +147,7 @@ class AppStore extends Store {
         break;
 
       case 'PROCESS-4SQUARE-DATA':
-        var venues = data.venues.map( item => { return { 'name': item.name, 'location': item.location, 'media_count': item.stats.checkinsCount } }).slice(0,5);
-        debugger;
+        var venues = data.venues.map( item => { return { 'name': item.name, 'location': item.location, 'media_count': item.stats.checkinsCount } }).slice(0,3);
         this.set('venues', venues.concat(data.isConcat ? this.get('venues') : []));
         break;
 
@@ -163,8 +162,7 @@ class AppStore extends Store {
         break;
 
       case 'PROCESS-TAG-SEARCH':
-        var venues = _.forEach( _.sortByOrder(data.venues, 'media_count', 'desc'), (o) => { o.name = '#' + o.name }).slice(0,5);
-        debugger;
+        var venues = _.forEach( _.sortByOrder(data.venues, 'media_count', 'desc'), (o) => { /*o.name = '#' + o.name*/ }).slice(0,3);
         if ( data.isConcat ) venues.concat(this.get('venues'));
         this.set('venues', venues.concat(data.isConcat ? this.get('venues') : []));
         break;
