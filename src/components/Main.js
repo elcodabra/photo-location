@@ -2,7 +2,7 @@ require('normalize.css');
 require('styles/App.css');
 
 import React from 'react';
-import PhotoGallery from './PhotoGalleryComponent';
+import PhotoGallery from './PhotoGallery';
 import Search from './SearchComponentMat';
 
 class AppComponent extends React.Component {
