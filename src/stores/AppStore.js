@@ -31,6 +31,17 @@ class AppStore extends Store {
     this.initialize('isRefresh', false);
   }
 
+  httpGet(url) {
+    return new Promise(function(resolve, reject) {
+      $.ajax({
+        url: url,
+        jsonp: "callback",
+        dataType: "jsonp"
+      }).done(response => resolve(response))
+        .fail(error => reject(error))
+    });
+  }
+
   onAction(actionType, data) {
     this.logger.debug(`Received Action ${actionType} with data`, data);
     switch (actionType) {
@@ -179,6 +190,19 @@ class AppStore extends Store {
         var venues = _.forEach( _.sortByOrder(data.venues, 'media_count', 'desc'), (o) => { /*o.name = '#' + o.name*/ }).slice(0,3);
         if ( data.isConcat ) venues.concat(this.get('venues'));
         this.set('venues', venues.concat(data.isConcat ? this.get('venues') : []));
+        break;
+
+      case 'REQUEST-ALL-VENUES':
+        Promise.all([
+          this.httpGet('https://api.instagram.com/v1/tags/search?q=' + data.tag + '&client_id=' + this.config.instagram_client_id),
+          this.httpGet('https://api.foursquare.com/v2/venues/search?near=' + data.tag + '&client_id=' + this.config.foursquare_client_id + '&client_secret=' + this.config.foursquare_client_secret + '&v=20151224'),
+        ]).then(
+            result => {
+              console.log(result);
+              var venues = [];
+            },
+            error => console.log("Ошибка: " + error.message) // Ошибка: Not Found
+        );
         break;
 
       default:

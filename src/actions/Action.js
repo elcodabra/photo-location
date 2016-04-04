@@ -69,5 +69,7 @@ export default class Actions {
     dispatcher.dispatch('PROCESS-TAG-SEARCH', { venues: data.data, isConcat: isConcat });
   }
 
-
+  static requestAllVenues(tag) {
+    dispatcher.dispatch('REQUEST-ALL-VENUES', { tag: tag });
+  }
 }
