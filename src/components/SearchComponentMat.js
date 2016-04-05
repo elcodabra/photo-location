@@ -63,7 +63,7 @@ class SearchComponentMat extends React.Component {
       Actions.requestInstaTagData(venue.name);
     } else {
       let point = venue.location.split(" ");
-      Actions.requestInstaSearch({ latitude: point[0], longitude: point[1] });
+      Actions.requestInstaSearch({ latitude: point[1], longitude: point[0] });
       //appStore.set('lat', venue.location.lat); appStore.set('lng', venue.location.lng);
     }
   };

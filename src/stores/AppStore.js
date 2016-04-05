@@ -162,7 +162,7 @@ class AppStore extends Store {
         break;
 
       case 'PROCESS-PLACES-DATA':
-        this.set('venues', _.uniq(_.pluck( data.venues, 'GeoObject' ).map( item => { return { 'name': item.metaDataProperty.GeocoderMetaData.text, 'location': item.Point.pos } })), 'name');
+        this.set('venues', _.uniq(_.pluck( data.venues, 'GeoObject' ).map( item => { return { 'name': item.metaDataProperty.GeocoderMetaData.text, 'location': item.Point.pos } }),'name'));
         break;
 
       case 'REQUEST-TAG-SEARCH':
