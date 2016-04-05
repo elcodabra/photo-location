@@ -151,6 +151,20 @@ class AppStore extends Store {
         this.set('venues', venues.concat(data.isConcat ? this.get('venues') : []));
         break;
 
+      case 'REQUEST-PLACES-DATA':
+        $.ajax({
+          url: "https://geocode-maps.yandex.ru/1.x/?format=json&geocode=" + data.tag + "&key=" + this.config.yandex_api_key,
+          jsonp: "callback",
+          dataType: "jsonp"
+        }).done(response => {
+          Actions.processPlacesData(response);
+        });
+        break;
+
+      case 'PROCESS-PLACES-DATA':
+        this.set('venues', _.uniq(_.pluck( data.venues, 'GeoObject' ).map( item => { return { 'name': item.metaDataProperty.GeocoderMetaData.text, 'location': item.Point.pos } })), 'name');
+        break;
+
       case 'REQUEST-TAG-SEARCH':
         $.ajax({
           url: "https://api.instagram.com/v1/tags/search?q=" + data.tag + "&client_id=" + this.config.instagram_client_id,

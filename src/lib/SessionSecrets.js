@@ -38,7 +38,8 @@ function getConfigEnvironment() {
   return {
     instagram_client_id: process.env.instagram_client_id,
     foursquare_client_id: process.env.foursquare_client_id,
-    foursquare_client_secret: process.env.foursquare_client_secret
+    foursquare_client_secret: process.env.foursquare_client_secret,
+    yandex_api_key: process.env.yandex_api_key
   }
 }
 
@@ -56,7 +57,8 @@ function getConfigFile() {
   return {
     instagram_client_id: config.instagram_client_id,
     foursquare_client_id: config.foursquare_client_id,
-    foursquare_client_secret: config.foursquare_client_secret
+    foursquare_client_secret: config.foursquare_client_secret,
+    yandex_api_key: config.yandex_api_key
   };
 }
 

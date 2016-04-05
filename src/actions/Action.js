@@ -53,6 +53,14 @@ export default class Actions {
     dispatcher.dispatch('PROCESS-4SQUARE-DATA', { venues: data.response.venues, isConcat: isConcat });
   }
 
+  static requestPlacesData(tag) {
+    dispatcher.dispatch('REQUEST-PLACES-DATA', { tag: tag });
+  }
+
+  static processPlacesData(data) {
+    dispatcher.dispatch('PROCESS-PLACES-DATA', { venues: data.response.GeoObjectCollection.featureMember });
+  }
+
   static requestTagSearch(tag) {
     dispatcher.dispatch('REQUEST-TAG-SEARCH', { tag: tag });
   }
