@@ -164,9 +164,8 @@ class AppStore extends Store {
 
       case 'REQUEST-PLACES-DATA':
         $.ajax({
-          url: "https://geocode-maps.yandex.ru/1.x/?format=json&geocode=" + data.tag + "&key=" + this.config.yandex_api_key,
-          jsonp: "callback",
-          dataType: "jsonp"
+          url: "http://localhost:3000/proxy-server/maps/api/place/autocomplete/json?input=moscow&key=AIzaSyDGtwjutKw_oInFHMLHKKUL2ixtv55w8Eo",//"https://geocode-maps.yandex.ru/1.x/?format=json&geocode=" + data.tag + "&key=" + this.config.yandex_api_key,
+          dataType: "json"
         }).done(response => {
           Actions.processPlacesData(response);
         });

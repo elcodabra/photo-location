@@ -15,7 +15,8 @@ var isDev = process.env.NODE_ENV === 'development';
 app.use('/proxy-server', function(req, res, next) {
   request('https://maps.googleapis.com' + require('url').parse(req.url).path, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      res.send(body);
+      res.send(response);
+      //res.send(body);
     }
   })
 });
