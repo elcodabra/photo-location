@@ -4,7 +4,6 @@ import React from 'react';
 import Actions from '../actions/Action';
 import appStore from '../stores/AppStore';
 import ReactTypeahead from 'react-typeahead';
-import * as $ from 'jquery';
 
 require('styles//Search.less');
 
