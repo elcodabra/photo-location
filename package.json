@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "express": "^4.13.3",
+    "express-http-proxy": "^0.6.0",
     "less": "^2.5.3",
     "less-loader": "^2.0.0",
     "lodash": "^3.10.1",
