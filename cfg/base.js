@@ -18,7 +18,13 @@ module.exports = {
     hot: true,
     port: port,
     publicPath: publicPath,
-    noInfo: false
+    noInfo: false,
+    proxy: {
+      '/proxy-server/*': {
+        target: `http://localhost:${port - 1}`,
+        secure: false,
+      }
+    }
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],

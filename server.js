@@ -14,17 +14,10 @@ var isDev = process.env.NODE_ENV === 'development';
 
 app.use('/proxy-server', function(req, res) {
   req.pipe(request('https://maps.googleapis.com' + require('url').parse(req.url).path)).pipe(res);
-  /*request('https://maps.googleapis.com' + require('url').parse(req.url).path, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      //res.send(response);
-      res.send(body);
-    }
-  })*/
 });
 
 if (isDev) {
-  // port dev default 3000 for proxy service
-  app.listen(3000);
+  app.listen(config.port - 1);
   // webpack dev server
   new WebpackDevServer(compiler, config.devServer)
     .listen(config.port, 'localhost', function(err) {
@@ -35,6 +28,7 @@ if (isDev) {
       open('http://localhost:' + config.port + '/webpack-dev-server/');
     });
 } else {
+  // FIXME: remove process.env.PORT
   app.set('port', (process.env.PORT || config.port));
   app.use("/", express.static(__dirname + '/dist/'));
   app.listen(app.get('port'));
