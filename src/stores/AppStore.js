@@ -31,13 +31,11 @@ class AppStore extends Store {
     this.initialize('isRefresh', false);
   }
 
-  httpGet(url) {
+  httpGet(url, isJson) {
     return new Promise(function(resolve, reject) {
-      $.ajax({
-        url: url,
-        jsonp: "callback",
-        dataType: "jsonp"
-      }).done(response => resolve(response))
+      let urlOptions = (!isJson) ? { url: url, jsonp: 'callback', dataType: 'jsonp' } : { url: url, dataType: 'json' };
+      $.ajax(urlOptions)
+        .done(response => resolve(response))
         .fail(error => reject(error))
     });
   }

@@ -55,10 +55,6 @@ class SearchComponent extends React.Component {
 
     return (
       <div className="search-component">
-        {/*<div>
-          <input id="search-text" type="text" />
-          <button onClick={onSearch}>Search</button>
-        </div>*/}
           <ReactTypeahead.Typeahead
               name="myTypeahead"
               options={this.state.places}

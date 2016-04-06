@@ -8,6 +8,10 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import MapsPlace from 'material-ui/lib/svg-icons/maps/place';
 import Search from 'material-ui/lib/svg-icons/action/search';
 import Check from 'material-ui/lib/svg-icons/navigation/check';
+import Avatar from 'material-ui/lib/avatar';
+import Colors from 'material-ui/lib/styles/colors';
+import List from 'material-ui/lib/lists/list';
+import ListItem from 'material-ui/lib/lists/list-item';
 
 require('styles//SearchMaterial.less');
 
@@ -28,12 +32,22 @@ class SearchComponentMat extends React.Component {
         return {
           text: item.name,
           value: (
-            <MenuItem
-              leftIcon={ item.location ? <MapsPlace/> : <Search/> }    //&#9839;
+            /*<MenuItem
+              leftIcon={ item.location_id ? <MapsPlace/> : '#' } //&#9839;
               //rightIcon= { <Check/> }
               primaryText={ item.name }
               secondaryText={(<b>{item.media_count}</b>)}
-              />
+            />*/
+            // FIXME: add selectable list - http://www.material-ui.com/#/components/list
+            <ListItem
+              leftIcon={ item.location_id ? <MapsPlace/> : '' }
+              leftAvatar={ !item.location_id ? <Avatar color={Colors.grey500} backgroundColor={Colors.transparent} style={{left: 10}}>#</Avatar> : '' } //&#9839;
+              primaryText={ item.name }
+              secondaryText={(<b>{item.media_count}</b>)}
+              //rightToggle={(<b>{item.media_count}</b>)}
+              value={ item }
+              onMouseEnter={ (e) => { console.log(e); console.log(item); console.log(this.value) } }
+            />
           )
         }
       }),
@@ -48,7 +62,7 @@ class SearchComponentMat extends React.Component {
       if (searchValue.startsWith('#')) {
         Actions.requestTagSearch(searchValue.substr(1));
       } else {
-        //Actions.requestTagSearch(searchValue);
+        Actions.requestTagSearch(searchValue);
         //Actions.request4SquareData(searchValue);
         Actions.requestPlacesAutocomplete(searchValue);
       }
