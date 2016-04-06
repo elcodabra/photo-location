@@ -53,12 +53,20 @@ export default class Actions {
     dispatcher.dispatch('PROCESS-4SQUARE-DATA', { venues: data.response.venues, isConcat: isConcat });
   }
 
-  static requestPlacesData(tag) {
-    dispatcher.dispatch('REQUEST-PLACES-DATA', { tag: tag });
+  static requestPlacesAutocomplete(data) {
+    dispatcher.dispatch('REQUEST-PLACES-AUTOCOMPLETE', { name: data });
   }
 
-  static processPlacesData(data) {
-    dispatcher.dispatch('PROCESS-PLACES-DATA', { venues: data.response.GeoObjectCollection.featureMember });
+  static processPlacesAutocomplete(data) {
+    dispatcher.dispatch('PROCESS-PLACES-AUTOCOMPLETE', { venues: data.predictions });
+  }
+
+  static requestPlacesLocation(data) {
+    dispatcher.dispatch('REQUEST-PLACES-LOCATION', { place_id: data.place_id });
+  }
+
+  static processPlacesLocation(data) {
+    dispatcher.dispatch('PROCESS-PLACES-LOCATION', { latitude: data.lat, longitude: data.lng });
   }
 
   static requestTagSearch(tag) {

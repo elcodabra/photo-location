@@ -162,17 +162,30 @@ class AppStore extends Store {
         this.set('venues', venues.concat(data.isConcat ? this.get('venues') : []));
         break;
 
-      case 'REQUEST-PLACES-DATA':
+      case 'REQUEST-PLACES-AUTOCOMPLETE':
         $.ajax({
-          url: "http://localhost:3000/proxy-server/maps/api/place/autocomplete/json?input=moscow&key=AIzaSyDGtwjutKw_oInFHMLHKKUL2ixtv55w8Eo",//"https://geocode-maps.yandex.ru/1.x/?format=json&geocode=" + data.tag + "&key=" + this.config.yandex_api_key,
-          dataType: "json"
+          url: `/proxy-server/maps/api/place/autocomplete/json?input=${data.name}&key=${this.config.google_api_key}`,
+          dataType: 'json'
         }).done(response => {
-          Actions.processPlacesData(response);
+          Actions.processPlacesAutocomplete(response);
         });
         break;
 
-      case 'PROCESS-PLACES-DATA':
-        this.set('venues', _.uniq(_.pluck( data.venues, 'GeoObject' ).map( item => { return { 'name': item.metaDataProperty.GeocoderMetaData.text, 'location': item.Point.pos } }),'name'));
+      case 'PROCESS-PLACES-AUTOCOMPLETE':
+        this.set('venues', data.venues.map( item => { return { 'id': item.id, 'name': item.description, 'location_id': item.place_id } } ));
+        break;
+
+      case 'REQUEST-PLACES-LOCATION':
+        $.ajax({
+          url: `/proxy-server/maps/api/geocode/json?place_id=${data.place_id}&key=${this.config.google_api_key}`,
+          dataType: 'json'
+        }).done(response => {
+          if (response.results[0] && response.results[0].geometry.location) Actions.processPlacesLocation(response.results[0].geometry.location);
+        });
+        break;
+
+      case 'PROCESS-PLACES-LOCATION':
+        Actions.requestInstaSearch(data);
         break;
 
       case 'REQUEST-TAG-SEARCH':

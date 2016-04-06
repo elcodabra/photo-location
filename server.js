@@ -25,7 +25,7 @@ if (isDev) {
         console.log(err);
       }
       console.log('Listening at localhost:' + config.port);
-      open('http://localhost:' + config.port + '/webpack-dev-server/');
+      //open('http://localhost:' + config.port + '/webpack-dev-server/');
     });
 } else {
   // FIXME: remove process.env.PORT

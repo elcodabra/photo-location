@@ -50,7 +50,7 @@ class SearchComponentMat extends React.Component {
       } else {
         //Actions.requestTagSearch(searchValue);
         //Actions.request4SquareData(searchValue);
-        Actions.requestPlacesData(searchValue);
+        Actions.requestPlacesAutocomplete(searchValue);
       }
     }
     appStore.set('venues', []);
@@ -59,12 +59,10 @@ class SearchComponentMat extends React.Component {
   newRequest = (value) => {
     var venue = _.filter(this.state.venues, {name: value})[0];
 
-    if (!venue.location) {
+    if (!venue.location_id) {
       Actions.requestInstaTagData(venue.name);
     } else {
-      let point = venue.location.split(" ");
-      Actions.requestInstaSearch({ latitude: point[1], longitude: point[0] });
-      //appStore.set('lat', venue.location.lat); appStore.set('lng', venue.location.lng);
+      Actions.requestPlacesLocation({ place_id: venue.location_id });
     }
   };
 
