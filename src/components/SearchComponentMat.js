@@ -97,7 +97,6 @@ class SearchComponentMat extends React.Component {
           //onNewRequest={this.newRequest}
           style={{ width: '500px' }}
           listStyle={{ width: '500px', textAlign: 'left' }}
-          maxSearchResults={5}
           />
       </div>
     );
