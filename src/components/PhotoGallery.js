@@ -5,6 +5,7 @@ import GridList from 'material-ui/lib/grid-list/grid-list';
 import GridTile from 'material-ui/lib/grid-list/grid-tile';
 import StarBorder from 'material-ui/lib/svg-icons/toggle/star-border';
 import IconButton from 'material-ui/lib/icon-button';
+import Avatar from 'material-ui/lib/avatar';
 import Actions from '../actions/Action';
 import appStore from '../stores/AppStore';
 
@@ -56,14 +57,16 @@ class PhotoGallery extends React.Component {
           {this.state.images.map(tile => (
             <GridTile
               key={tile.low_resolution.url}
-              //title={tile.title}
-              //subtitle={<span>by <b>{tile.author}</b></span>}
-              //actionIcon={<IconButton><StarBorder color="white"/></IconButton>}
+              title={tile.featured ? <a href={tile.link} target="_blank">{tile.user_name}</a> : null}
+              actionIcon={tile.featured ? <a href={tile.link} target="_blank"><Avatar src={tile.user_profile_picture} style={{marginLeft: 10, marginTop: 15}} /></a> : null} //{<IconButton><StarBorder color="white"/></IconButton>}
+              actionPosition="left"
+              titlePosition="top"
+              titleBackground={tile.featured ? "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)" : null}
               cols={tile.featured ? 2 : 1}
               rows={tile.featured ? 2 : 1}
               onClick={() => {tile.featured = !tile.featured; this.updateState(); }}
               >
-              <img src={tile.featured ? tile.standard_resolution.url : tile.low_resolution.url} />
+              <img src={tile.featured ? tile.standard_resolution.url : tile.low_resolution.url}/>
             </GridTile>
           ))}
         </GridList>
