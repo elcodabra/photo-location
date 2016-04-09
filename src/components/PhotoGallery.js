@@ -5,6 +5,7 @@ import GridList from 'material-ui/lib/grid-list/grid-list';
 import GridTile from 'material-ui/lib/grid-list/grid-tile';
 import StarBorder from 'material-ui/lib/svg-icons/toggle/star-border';
 import IconButton from 'material-ui/lib/icon-button';
+import Colors from 'material-ui/lib/styles/colors';
 import Avatar from 'material-ui/lib/avatar';
 import Actions from '../actions/Action';
 import appStore from '../stores/AppStore';
@@ -57,7 +58,7 @@ class PhotoGallery extends React.Component {
           {this.state.images.map(tile => (
             <GridTile
               key={tile.low_resolution.url}
-              title={tile.featured ? <a href={tile.link} target="_blank">{tile.user_name}</a> : null}
+              title={tile.featured ? <a href={tile.link} target="_blank" style={{color:Colors.grey50, fontWeight: "bold"}}>{tile.user_name}</a> : null}
               actionIcon={tile.featured ? <a href={tile.link} target="_blank"><Avatar src={tile.user_profile_picture} style={{marginLeft: 10, marginTop: 15}} /></a> : null} //{<IconButton><StarBorder color="white"/></IconButton>}
               actionPosition="left"
               titlePosition="top"
