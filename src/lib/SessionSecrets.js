@@ -1,9 +1,7 @@
-'use strict';
+_ = require('lodash');
 
-import * as _ from 'lodash';
-
-export default function() {
-  let sessionSecrets = _.defaults({},
+module.exports = function() {
+  var sessionSecrets = _.defaults({},
     //getConfigCommandLine(),
     getConfigEnvironment(),
     getConfigFile(),

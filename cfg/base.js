@@ -20,8 +20,16 @@ module.exports = {
     publicPath: publicPath,
     noInfo: false,
     proxy: {
-      '/proxy-server/*': {
-        target: `http://localhost:${port - 1}`,
+      '/proxy-google/*': {
+        target: 'http://localhost:' + (port - 1),
+        secure: false,
+      },
+      '/proxy-instagram/*': {
+        target: 'http://localhost:' + (port - 1),
+        secure: false,
+      },
+      '/proxy-foursquare/*': {
+        target: 'http://localhost:' + (port - 1),
         secure: false,
       }
     }

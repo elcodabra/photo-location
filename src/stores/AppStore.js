@@ -2,16 +2,14 @@ import Store from '../lib/Store';
 import find from 'lodash/collection/find';
 import dispatcher from '../dispatcher/Dispatcher';
 import Actions from '../actions/Action';
-import getSessionSecrets from '../lib/SessionSecrets';
 import $ from 'jquery';
+import _ from 'lodash';
 
 class AppStore extends Store {
 
   constructor() {
     super('AppStore');
     this.logger.debug('Initializing AppStore');
-
-    this.config = getSessionSecrets();
 
     this.initialize('pages', [
       { name: 'welcome', title: 'Welcome', nav: true, auth: false, default: true },
@@ -52,27 +50,6 @@ class AppStore extends Store {
         }
         break;
 
-      case 'REQUEST-FLICKR-DATA':
-        let lastRequest = this.get('lastFlickrRequest');
-        let currentTime = Date.now;
-        let fiveMinutes = 5 * 60 * 1000;
-        if ((currentTime - lastRequest) > fiveMinutes) {
-          return;
-        }
-        $.ajax({
-          url: 'http://api.flickr.com/services/feeds/photos_public.gne',
-          data: { tags: data.tag, tagmode: 'any', format: 'json' },
-          dataType: 'jsonp',
-          jsonp: 'jsoncallback'
-        }).done(response => {
-          Actions.processFlickrData(response);
-        });
-        break;
-
-      case 'PROCESS-FLICKR-DATA':
-        this.set('images', data.items);
-        break;
-
       case 'SORT-GRID-DATA':
         var screens = this.get('instaData');
         data.source = _.find(screens, {key: parseInt(data.source, 10)});
@@ -97,9 +74,9 @@ class AppStore extends Store {
 
       case 'REQUEST-INSTA-GET-LOCATION':
         $.ajax({
-          url: "https://api.instagram.com/v1/locations/search?client_id=" + this.config.instagram_client_id + "&foursquare_v2_id=" + data.foursquare_id,
-          jsonp: "callback",
-          dataType: "jsonp"
+          url: `/proxy-instagram/v1/locations/search?foursquare_v2_id=${data.foursquare_id}`,
+          jsonp: 'callback',
+          dataType: 'jsonp'
         }).done(response => {
           //Actions.processInstaGetLocation(response);
           Actions.requestInstaSearch(response.data[0]);
@@ -108,9 +85,9 @@ class AppStore extends Store {
 
       case 'REQUEST-INSTA-SEARCH':
         $.ajax({
-          url: "https://api.instagram.com/v1/media/search?client_id=" + this.config.instagram_client_id + "&lng=" + data.lng + '&lat=' + data.lat,
-          jsonp: "callback",
-          dataType: "jsonp"
+          url: `/proxy-instagram/v1/media/search?lng=${data.lng}&lat=${data.lat}`,
+          jsonp: 'callback',
+          dataType: 'jsonp'
         }).done(response => {
           Actions.processInstaData(response);
         });
@@ -128,9 +105,9 @@ class AppStore extends Store {
           return;
         }
         $.ajax({
-          url: "https://api.instagram.com/v1/tags/" + data.tag + "/media/recent?client_id=" + this.config.instagram_client_id,
-          jsonp: "callback",
-          dataType: "jsonp"
+          url: `/proxy-instagram/v1/tags/${data.tag}/media/recent`,
+          jsonp: 'callback',
+          dataType: 'jsonp'
         }).done(response => {
           Actions.processInstaData(response);
         });
@@ -156,9 +133,9 @@ class AppStore extends Store {
 
       case 'REQUEST-4SQUARE-DATA':
         $.ajax({
-          url: "https://api.foursquare.com/v2/venues/search?near=" + data.tag + "&client_id=" + this.config.foursquare_client_id + "&client_secret=" + this.config.foursquare_client_secret + "&v=20151224",
-          jsonp: "callback",
-          dataType: "jsonp"
+          url: `/proxy-foursquare/v2/venues/search?near=${data.tag}`,
+          jsonp: 'callback',
+          dataType: 'jsonp'
         }).done(response => {
           Actions.process4SquareData(response, this.get('search') == data.tag);
         });
@@ -171,7 +148,7 @@ class AppStore extends Store {
 
       case 'REQUEST-PLACES-AUTOCOMPLETE':
         $.ajax({
-          url: `/proxy-server/maps/api/place/autocomplete/json?input=${data.name}&key=${this.config.google_api_key}`,
+          url: `/proxy-google/maps/api/place/autocomplete/json?input=${data.name}`,
           dataType: 'json'
         }).done(response => {
           Actions.processPlacesAutocomplete(response);
@@ -184,7 +161,7 @@ class AppStore extends Store {
 
       case 'REQUEST-PLACES-LOCATION':
         $.ajax({
-          url: `/proxy-server/maps/api/geocode/json?place_id=${data.place_id}&key=${this.config.google_api_key}`,
+          url: `/proxy-google/maps/api/geocode/json?place_id=${data.place_id}`,
           dataType: 'json'
         }).done(response => {
           if (response.results[0] && response.results[0].geometry.location) Actions.processPlacesLocation(response.results[0].geometry.location);
@@ -197,9 +174,9 @@ class AppStore extends Store {
 
       case 'REQUEST-TAG-SEARCH':
         $.ajax({
-          url: "https://api.instagram.com/v1/tags/search?q=" + data.tag + "&client_id=" + this.config.instagram_client_id,
-          jsonp: "callback",
-          dataType: "jsonp"
+          url: `/proxy-instagram/v1/tags/search?q=${data.tag}`,
+          jsonp: 'callback',
+          dataType: 'jsonp'
         }).done(response => {
           Actions.processTagSearch(response, this.get('search') == data.tag);
         });
@@ -209,19 +186,6 @@ class AppStore extends Store {
         var venues = _.forEach( _.sortByOrder(data.venues, 'media_count', 'desc'), (o) => { /*o.name = '#' + o.name*/ }).slice(0,3);
         if ( data.isConcat ) venues.concat(this.get('venues'));
         this.set('venues', venues.concat(data.isConcat ? this.get('venues') : []));
-        break;
-
-      case 'REQUEST-ALL-VENUES':
-        Promise.all([
-          this.httpGet('https://api.instagram.com/v1/tags/search?q=' + data.tag + '&client_id=' + this.config.instagram_client_id),
-          this.httpGet('https://api.foursquare.com/v2/venues/search?near=' + data.tag + '&client_id=' + this.config.foursquare_client_id + '&client_secret=' + this.config.foursquare_client_secret + '&v=20151224'),
-        ]).then(
-            result => {
-              console.log(result);
-              var venues = [];
-            },
-            error => console.log("Ошибка: " + error.message) // Ошибка: Not Found
-        );
         break;
 
       default:
