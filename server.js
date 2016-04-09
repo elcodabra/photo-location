@@ -57,8 +57,7 @@ if (isDev) {
       //open('http://localhost:' + config.port + '/webpack-dev-server/');
     });
 } else {
-  // FIXME: remove process.env.PORT
-  app.set('port', (process.env.PORT || config.port));
+  app.set('port', config.port);
   app.use("/", express.static(__dirname + '/dist/'));
   app.listen(app.get('port'));
   console.log('Listening at ' + __dirname + '/dist/' + ' port:' + app.get('port'));
