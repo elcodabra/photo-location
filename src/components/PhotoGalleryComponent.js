@@ -5,10 +5,8 @@ import ReactDOM from 'react-dom';
 import AbsoluteGrid from 'react-absolute-grid/lib/AbsoluteGrid.jsx';
 import DisplayObject from './DisplayObjectComponent';
 import AppComponent from './Main';
-import Modal from './ModalComponent';
 import Actions from '../actions/Action';
 import appStore from '../stores/AppStore';
-import * as _ from 'lodash';
 
 require('styles//PhotoGallery.less');
 
@@ -52,8 +50,7 @@ class PhotoGalleryComponent extends React.Component {
         };
 
         return (
-            <div id="photo-gallery" className="photogallery-component">
-                {/*<div><h1>{this.state.tag}</h1></div>*/}
+            //<div id="photo-gallery" className="photogallery-component">
                 <AbsoluteGrid items={this.state.images}
                               displayObject={displayObject}
                               onMove={onMoveDebounced}
@@ -63,8 +60,7 @@ class PhotoGalleryComponent extends React.Component {
                               verticalMargin={42}
                               itemWidth={250}
                               itemHeight={250}/>
-                <Modal id='' currentImage={currentImage} />
-            </div>
+            //</div>
         );
     }
 }
