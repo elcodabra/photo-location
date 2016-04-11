@@ -22,7 +22,8 @@ class DisplayObjectComponent extends React.Component {
     };
     return (
         <div style={itemStyle} className="gridItem">
-          <a href="#image" className="name" onClick={this.handleClick.bind(this)}>{this.props.item.sort}</a>
+          <a href={this.props.item.link} className="name" target="_blank">{this.props.item.user_name}&nbsp;{this.props.item.sort}</a>
+          {/*<a href="#image" className="name" onClick={this.handleClick.bind(this)}>{this.props.item.sort}</a>*/}
         </div>
     );
   }
