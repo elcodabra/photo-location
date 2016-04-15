@@ -58,8 +58,8 @@ class PhotoGalleryComponent extends React.Component {
                               zoom={zoom}
                               responsive={true}
                               verticalMargin={42}
-                              itemWidth={250}
-                              itemHeight={250}/>
+                              itemHeight={250}
+                              itemWidth={250}/>
             //</div>
         );
     }
